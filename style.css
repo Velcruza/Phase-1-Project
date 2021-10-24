@@ -85,14 +85,17 @@ margin-left: 270px;
 
 #ingredients-info{
   margin-left: 150px;
+  width: 200px;
+  height: 300px;
 }
 
 #instructions-info {
   margin-left: 150px;
+  height: 300px;
 }
 
 #instructions-title{
-text-align: center;
+  text-align: center;
 }
 
 #ingredients-title{
@@ -100,12 +103,15 @@ text-align: center;
 
 }
 
-/* #instructions {
-
-} */
+#instructions {
+  height: 200px;
+  overflow: auto;
+}
 
 #ingredients {
-margin-left: -50px;
+  height: 200px;
+  margin-left: -50px;
+  overflow: auto;
 }
 
 #recipe-menu{
@@ -122,13 +128,16 @@ margin-left: -50px;
 }
 
 .recipe-image{
-  width: 250px;
+  height: 150px;
+  width: 150px;
   margin: 3px 0px 0px 0px ;
   border-radius: 20px;
 }
 
 .recipe-title{
   margin: 0px;
+  height: 18px;
+  text-overflow: clip;
 }
 
 .likes {
