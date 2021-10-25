@@ -40,6 +40,10 @@ body {
   font-size: 18px;
 }
 
+#filter-div {
+  display: flex;
+}
+
 #display {
   height: 400px;
   background: red;
