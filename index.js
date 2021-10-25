@@ -8,11 +8,15 @@ const displayImage = document.getElementById("display-image");
 const displayName = document.getElementById("recipe-name");
 const displayIngredients = document.getElementById("ingredients");
 const displayInstructions = document.getElementById("instructions");
-const selectIng = document.getElementById('food-i-have')
-const ingFilterBttn= document.getElementById('ingredient-filter')
+// const selectIng = document.getElementById('food-i-have')
+// const ingFilterBttn= document.getElementById('ingredient-filter')
 const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const likeButton = document.getElementById("like-bttn");
 const displayLikes = document.getElementById("display-likes")
+const catFilterBttn = document.getElementById('category-filter');
+const selectCat = document.getElementById('food-category');
+const countryFilterBttn = document.getElementById('country-filter');
+const selectCountry = document.getElementById('food-country')
 
 let featuredRecipe;
 
@@ -89,8 +93,38 @@ function renderFilterResult(recipe){
 }
 
 
-function ingredientFilter() {
-    const userInput = selectIng.value;
+// function ingredientFilter() {
+//     const userInput = selectIng.value;
+//     recipeMenu.replaceChildren();
+//     for (const element of arrAlphabet){
+//         fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
+//         .then(response => response.json())
+//         .then(responseObj =>{
+//             let iterable = responseObj.meals
+//             if (Array.isArray(iterable)){
+//                 iterable.forEach((obj)=> { 
+//                 //looping through ingredients here
+//                 //tried interpolating the i in strIngredient${i} but kept getting errors
+//                 //so manually have to changed it 1,2,3,4... etc
+//                 // for(let i=0; i<21; i++) {
+//                 //     console.log(obj[`strIngredient${i}`])
+//                 // }
+//                 for(const key in obj){
+//                         if(userInput === obj[key]){
+//                                 renderFilterResult(obj);
+//                                 break;
+//                     }
+//                 }
+//             })
+//         }
+//         })
+//     }
+
+// }
+
+
+function categoryFilter(){
+    const userInput = selectCat.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
         fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
@@ -102,11 +136,9 @@ function ingredientFilter() {
                 //looping through ingredients here
                 //tried interpolating the i in strIngredient${i} but kept getting errors
                 //so manually have to changed it 1,2,3,4... etc
-                for(let i=0; i<21; i++) {
-                    console.log(obj.strIngredient2)
-                }
-
-
+                // for(let i=0; i<21; i++) {
+                //     console.log(obj[`strIngredient${i}`])
+                // }
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
@@ -117,7 +149,34 @@ function ingredientFilter() {
         }
         })
     }
+}
 
+function countryFilter(){
+    const userInput = selectCountry.value;
+    recipeMenu.replaceChildren();
+    for (const element of arrAlphabet){
+        fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
+        .then(response => response.json())
+        .then(responseObj =>{
+            let iterable = responseObj.meals
+            if (Array.isArray(iterable)){
+                iterable.forEach((obj)=> { 
+                //looping through ingredients here
+                //tried interpolating the i in strIngredient${i} but kept getting errors
+                //so manually have to changed it 1,2,3,4... etc
+                // for(let i=0; i<21; i++) {
+                //     console.log(obj[`strIngredient${i}`])
+                // }
+                for(const key in obj){
+                        if(userInput === obj[key]){
+                                renderFilterResult(obj);
+                                break;
+                    }
+                }
+            })
+        }
+        })
+    }
 }
 
 
@@ -130,3 +189,6 @@ function addLikes () {
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
 ingFilterBttn.addEventListener('click', ingredientFilter)
+catFilterBttn.addEventListener('click', categoryFilter)
+countryFilterBttn.addEventListener('click', countryFilter)
+
