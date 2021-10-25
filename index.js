@@ -1,15 +1,15 @@
 fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
 .then(function(response) {return response.json()})
 .then(function(json) {renderResult(json)})
-//test
+
 //global variables ------------------------
 const recipeMenu = document.getElementById("recipe-menu");
 const displayImage = document.getElementById("display-image");
 const displayName = document.getElementById("recipe-name");
 const displayIngredients = document.getElementById("ingredients");
 const displayInstructions = document.getElementById("instructions");
-const select = document.getElementById('food-i-have')
-const filterBttn= document.getElementById('filter')
+const selectIng = document.getElementById('food-i-have')
+const ingFilterBttn= document.getElementById('ingredient-filter')
 const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const likeButton = document.getElementById("like-bttn");
 const displayLikes = document.getElementById("display-likes")
@@ -79,7 +79,6 @@ function renderFilterResult(recipe){
 
         recipeImage.title = recipe.strMeal;
 
-        // resultLikes.textContent = "Likes: ";
         recipeImage.src = recipe.strMealThumb;
         recipeTitle.textContent = recipe.strMeal;
 
@@ -91,7 +90,7 @@ function renderFilterResult(recipe){
 
 
 function ingredientFilter() {
-    const userInput = select.value;
+    const userInput = selectIng.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
         fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
@@ -100,6 +99,7 @@ function ingredientFilter() {
             let iterable = responseObj.meals
             if (Array.isArray(iterable)){
                 iterable.forEach((obj)=> { 
+                console.log(obj.strArea)
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
@@ -122,4 +122,4 @@ function addLikes () {
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
-filterBttn.addEventListener('click', ingredientFilter)
+ingFilterBttn.addEventListener('click', ingredientFilter)
