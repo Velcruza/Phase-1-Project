@@ -1,7 +1,11 @@
 /* css code things */
 body {
   margin: 0;
+  font-weight: bold;
   font-family: 'Roboto', sans-serif;
+  /* background: linear-gradient(180deg, rgba(206, 170, 115, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%); */
+  background-image: linear-gradient(180deg, rgba(206, 170, 115, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%), url("https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80");
+  background-size: cover;
 }
 
 /* .big-image {
@@ -15,11 +19,11 @@ body {
 
 .overlay {
   position: absolute;
-  height: 200px;
+  height: 150px;
   width: 100%;
   top: 0;
   left: 0;
-  background: linear-gradient(180deg, rgba(29, 21, 9, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%);
+  /* background: linear-gradient(180deg, rgba(29, 21, 9, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%); */
   color: white;
   display: flex;
   align-items: center;
@@ -60,9 +64,10 @@ body {
 
 #display {
   height: 400px;
-  background: red;
-  Margin: 200px 100px 0px 100px;
+  Margin: 130px 100px 0px 100px;
   display: flex;
+  border-radius: 30px;
+  
 }
 
 
@@ -86,15 +91,15 @@ body {
 }
 
 #info {
-  margin-left: -100px;
-  background-color: royalblue;
+  /* margin-left: -100px; */
   height: 400px;
   width: 800px;
-  
+  line-height: 1.5;
 }
 
 #recipe-name {
-margin-left: 270px;
+margin-left: 190px;
+margin-bottom: 0px;
 }
 
 #content {
@@ -102,14 +107,16 @@ margin-left: 270px;
 }
 
 #ingredients-info{
-  margin-left: 150px;
-  width: 200px;
+  /* margin-left: 150px; */
+  width: 300px;
   height: 300px;
+  /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
 }
 
 #instructions-info {
-  margin-left: 150px;
+  margin-left: 50px;
   height: 300px;
+  /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
 }
 
 #instructions-title{
@@ -128,14 +135,15 @@ margin-left: 270px;
 
 #ingredients {
   height: 200px;
-  margin-left: -50px;
+  width: 150px;
+  /* margin-left: -50px; */
   overflow: auto;
 }
 
 #recipe-menu{
   display: flex;
-  background: hsl(180, 50%, 70%);
-  height: 220px;
+  background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%);
+  height: 200px;
   overflow: auto;
   text-align: center;
 }
