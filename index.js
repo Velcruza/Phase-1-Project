@@ -18,7 +18,7 @@ function renderResult (obj) {
         let recipeTitle = document.createElement("h4");
         let resultLikes = document.createElement("p");
         
-        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);x
+        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
 
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
