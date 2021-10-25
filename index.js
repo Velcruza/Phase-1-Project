@@ -103,6 +103,7 @@ function ingredientFilter() {
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
+                                break;
                     }
                 }
             })
