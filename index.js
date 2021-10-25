@@ -1,7 +1,7 @@
 fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
 .then(function(response) {return response.json()})
 .then(function(json) {renderResult(json)})
-
+//test
 //global variables ------------------------
 const recipeMenu = document.getElementById("recipe-menu");
 const displayImage = document.getElementById("display-image");
