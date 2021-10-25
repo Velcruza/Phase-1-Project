@@ -9,7 +9,7 @@ const displayIngredients = document.getElementById("ingredients");
 const displayInstructions = document.getElementById("instructions");
 const likeButton = document.getElementById("like-bttn");
 const displayLikes = document.getElementById("display-likes")
-let featuredRecipe, likesNum, featuredLikes;
+let featuredRecipe;
 //funtions ------------------------
 function renderResult (obj) {
     obj.meals.forEach(recipe => {
@@ -18,11 +18,7 @@ function renderResult (obj) {
         let recipeTitle = document.createElement("h4");
         let resultLikes = document.createElement("p");
         
-
-        resultLikes.className = "likes";
-        likesNum = Math.floor(Math.random() * (100 - 1) + 1);
-        recipe.likes = likesNum;
-        featuredLikes = likesNum;
+        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);x
 
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
@@ -61,7 +57,6 @@ function renderDisplay (obj) {
 function addLikes () {
     featuredRecipe.likes = parseInt(featuredRecipe.likes) + 1;
     displayLikes.textContent = featuredRecipe.likes;
-    featuredLikes = parseInt(featuredRecipe.likes);
     likeButton.style.backgroundColor = "red";
 }
 
