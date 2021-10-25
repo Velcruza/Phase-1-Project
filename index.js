@@ -11,12 +11,11 @@ const displayInstructions = document.getElementById("instructions");
 const select = document.getElementById('food-i-have')
 const filterBttn= document.getElementById('filter')
 const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const likeButton = document.getElementById("like-bttn");
+const displayLikes = document.getElementById("display-likes")
 
 let featuredRecipe;
 
-
-const likeButton = document.getElementById("like-bttn");
-const displayLikes = document.getElementById("display-likes")
 //functions ------------------------
 function renderResult (obj) {
     obj.meals.forEach(recipe => {
@@ -114,10 +113,6 @@ function ingredientFilter() {
 }
 
 
-
-filterBttn.addEventListener('click', ingredientFilter)
-
-
 function addLikes () {
     featuredRecipe.likes = parseInt(featuredRecipe.likes) + 1;
     displayLikes.textContent = featuredRecipe.likes;
@@ -126,3 +121,4 @@ function addLikes () {
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
+filterBttn.addEventListener('click', ingredientFilter)
