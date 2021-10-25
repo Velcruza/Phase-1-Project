@@ -99,7 +99,14 @@ function ingredientFilter() {
             let iterable = responseObj.meals
             if (Array.isArray(iterable)){
                 iterable.forEach((obj)=> { 
-                console.log(obj.strArea)
+                //looping through ingredients here
+                //tried interpolating the i in strIngredient${i} but kept getting errors
+                //so manually have to changed it 1,2,3,4... etc
+                for(let i=0; i<21; i++) {
+                    console.log(obj.strIngredient2)
+                }
+
+
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
