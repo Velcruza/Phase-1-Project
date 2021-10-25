@@ -44,6 +44,20 @@ body {
   display: flex;
 }
 
+#food-i-have{
+  margin-right: 5px;
+}
+
+#food-category{
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+#food-country{
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
 #display {
   height: 400px;
   background: red;
