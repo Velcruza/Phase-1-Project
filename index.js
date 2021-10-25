@@ -62,7 +62,7 @@ function renderDisplay (obj) {
 
 
 function renderFilterResult(recipe){
-    let newResult = document.createElement("div");
+        let newResult = document.createElement("div");
         let recipeImage = document.createElement("img");
         let recipeTitle = document.createElement("h4");
         let resultLikes = document.createElement("p");
