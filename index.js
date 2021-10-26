@@ -18,7 +18,8 @@ const selectCat = document.getElementById('food-category');
 const countryFilterBttn = document.getElementById('country-filter');
 const selectCountry = document.getElementById('food-country')
 
-let featuredRecipe;
+
+let featuredRecipe, displayArr;
 
 //functions ------------------------
 function defaultDisplay (obj) {
@@ -88,6 +89,7 @@ function renderDisplay (obj) {
             }
         }
     }
+
 }
 
 
@@ -99,8 +101,6 @@ function renderFilterResult(recipe){
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
         newResult.className = "result";
-
-        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
 
         recipeImage.title = recipe.strMeal;
 
@@ -114,6 +114,7 @@ function renderFilterResult(recipe){
 }
 
 function categoryFilter(){
+    displayArr = [];
     const userInput = selectCat.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
@@ -125,6 +126,11 @@ function categoryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                            obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
+                                if(displayArr.length < 1){
+                                    displayArr.push(obj)
+                                    checkDatabase(obj)
+                                }
                                 renderFilterResult(obj);
                                 break;
                     }
@@ -136,6 +142,7 @@ function categoryFilter(){
 }
 
 function countryFilter(){
+    displayArr = [];
     const userInput = selectCountry.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
@@ -147,6 +154,13 @@ function countryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                            obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
+                            if(displayArr.length < 1){
+                                // console.log(obj)
+                                displayArr.push(obj)
+                                // console.log(displayArr)
+                                checkDatabase(obj)
+                            }
                                 renderFilterResult(obj);
                                 break;
                     }
@@ -162,6 +176,52 @@ function addLikes () {
     displayLikes.textContent = featuredRecipe.likes;
     likeButton.style.backgroundColor = "red";
 }
+
+function checkDatabase(recipe){
+    fetch('http://localhost:3000/meals')
+    .then(response =>  response.json())
+    .catch(error => console.log(error))
+    .then(data => {
+        for (const element of data ){
+            if (recipe.idMeal === element.idMeal){
+                console.log('retrieving recipe');
+                getRecipe(recipe);
+                return "Recipe retrieved from database";
+            }
+        }
+        console.log('Recipe added to database')
+        postRecipe(recipe);
+        })
+
+}
+
+function postRecipe(recipe){
+    configurationObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(recipe)
+    }
+    fetch('http://localhost:3000/meals', configurationObj)
+    .then(response => response.json())
+    .then(data => renderDisplay(data))
+    .catch(error => console.log(error))
+}
+
+function getRecipe(recipe){
+    fetch('http://localhost:3000/meals')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(element =>{
+            if (element.idMeal === recipe.idMeal){
+                renderDisplay(element)
+            }
+        })
+    })
+    .catch(error=> console.log(error))
+}
+
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
