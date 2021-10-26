@@ -4,15 +4,12 @@ fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
 fetch("https://www.themealdb.com/api/json/v1/1/random.php")
     .then(function(response) {return response.json()})
     .then(function(json) {defaultDisplay(json)})
-
 //global variables ------------------------
 const recipeMenu = document.getElementById("recipe-menu");
 const displayImage = document.getElementById("display-image");
 const displayName = document.getElementById("recipe-name");
 const displayIngredients = document.getElementById("ingredients");
 const displayInstructions = document.getElementById("instructions");
-// const selectIng = document.getElementById('food-i-have')
-// const ingFilterBttn= document.getElementById('ingredient-filter')
 const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const likeButton = document.getElementById("like-bttn");
 const displayLikes = document.getElementById("display-likes")
