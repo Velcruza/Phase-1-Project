@@ -142,7 +142,7 @@ margin-bottom: 0px;
 
 #recipe-menu{
   display: flex;
-  background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%);
+  /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
   height: 200px;
   overflow: auto;
   text-align: center;
