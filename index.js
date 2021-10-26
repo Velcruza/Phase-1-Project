@@ -213,7 +213,7 @@ function patchLikes () {
     }
     fetch(`http://localhost:3000/meals/${featuredRecipe.id}`, configObj)
     .then(response => response.json())
-    .then(console.log("Success"))
+    .then(console.log("success"))
 }
 
 //event listeners ---------------------------
