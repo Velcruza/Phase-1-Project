@@ -24,25 +24,8 @@ let featuredRecipe, displayArr;
 //functions ------------------------
 function defaultDisplay (obj) {
     obj.meals.forEach(recipe => {  
-        console.log(recipe)  
         recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
-        featuredRecipe = recipe;
-        displayImage.src = recipe.strMealThumb;
-        displayName.textContent = recipe.strMeal;
-        displayInstructions.textContent = recipe.strInstructions;
-        displayLikes.textContent = recipe.likes;
-        displayIngredients.replaceChildren();
-        for(let key in recipe){ 
-            for(let i=1; i<21; i++) {
-                if(key === `strIngredient${i}`){
-                    if(recipe[key] !== null && recipe[key] !== "") {
-                        let ingredient = document.createElement("li");
-                        ingredient.textContent = recipe[`strMeasure${i}`] + " " +recipe[key];
-                        displayIngredients.append(ingredient);
-                    } 
-                }
-        }
-    }
+        checkDatabase(recipe);
     })
 }
 
@@ -66,7 +49,7 @@ function renderResult (obj) {
         newResult.append(recipeTitle, recipeImage, resultLikes);
         recipeMenu.append(newResult);
 
-        recipeImage.addEventListener("click", () => renderDisplay(recipe))
+        recipeImage.addEventListener("click", () => checkDatabase(recipe))
     })
 }
 
@@ -171,10 +154,27 @@ function countryFilter(){
     }
 }
 
+function patchLikes(){
+    configObj ={
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(featuredRecipe)
+    }
+
+    fetch(`http://localhost:3000/meals/${featuredRecipe.id}`, configObj)
+    .then(response => response.json())
+    .catch(error => console.error("Error: ", error))
+    .then(console.log("successful likes patch"))
+
+}
+
 function addLikes () {
     featuredRecipe.likes = parseInt(featuredRecipe.likes) + 1;
     displayLikes.textContent = featuredRecipe.likes;
     likeButton.style.backgroundColor = "red";
+    patchLikes();
 }
 
 function checkDatabase(recipe){
