@@ -1,4 +1,4 @@
-fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
+fetch("https://themealdb.com/api/json/v1/1/search.php?f=b")
     .then(function(response) {return response.json()})
     .then(function(json) {renderResult(json)})
 fetch("https://www.themealdb.com/api/json/v1/1/random.php")
@@ -18,31 +18,13 @@ const selectCat = document.getElementById('food-category');
 const countryFilterBttn = document.getElementById('country-filter');
 const selectCountry = document.getElementById('food-country')
 
-
 let featuredRecipe, displayArr;
 
 //functions ------------------------
 function defaultDisplay (obj) {
     obj.meals.forEach(recipe => {  
-        console.log(recipe)  
         recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
-        featuredRecipe = recipe;
-        displayImage.src = recipe.strMealThumb;
-        displayName.textContent = recipe.strMeal;
-        displayInstructions.textContent = recipe.strInstructions;
-        displayLikes.textContent = recipe.likes;
-        displayIngredients.replaceChildren();
-        for(let key in recipe){ 
-            for(let i=1; i<21; i++) {
-                if(key === `strIngredient${i}`){
-                    if(recipe[key] !== null && recipe[key] !== "") {
-                        let ingredient = document.createElement("li");
-                        ingredient.textContent = recipe[`strMeasure${i}`] + " " +recipe[key];
-                        displayIngredients.append(ingredient);
-                    } 
-                }
-        }
-    }
+        checkDatabase(recipe);
     })
 }
 
@@ -66,7 +48,7 @@ function renderResult (obj) {
         newResult.append(recipeTitle, recipeImage, resultLikes);
         recipeMenu.append(newResult);
 
-        recipeImage.addEventListener("click", () => renderDisplay(recipe))
+        recipeImage.addEventListener("click", () => checkDatabase(recipe))
     })
 }
 
@@ -91,7 +73,6 @@ function renderDisplay (obj) {
     }
 
 }
-
 
 function renderFilterResult(recipe){
         let newResult = document.createElement("div");
@@ -124,19 +105,19 @@ function categoryFilter(){
             let iterable = responseObj.meals
             if (Array.isArray(iterable)){
                 iterable.forEach((obj)=> { 
-                for(const key in obj){
-                        if(userInput === obj[key]){
-                            obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
-                                if(displayArr.length < 1){
-                                    displayArr.push(obj)
-                                    checkDatabase(obj)
-                                }
-                                renderFilterResult(obj);
-                                break;
-                    }
-                }
-            })
-        }
+                    for(const key in obj){
+                            if(userInput === obj[key]){
+                                obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
+                                    if(displayArr.length < 1){
+                                        displayArr.push(obj)
+                                        checkDatabase(obj)
+                                    }
+                                    renderFilterResult(obj);
+                                    break;
+                            }
+                    }   
+                })
+            }
         })
     }
 }
@@ -156,9 +137,7 @@ function countryFilter(){
                         if(userInput === obj[key]){
                             obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
                             if(displayArr.length < 1){
-                                // console.log(obj)
                                 displayArr.push(obj)
-                                // console.log(displayArr)
                                 checkDatabase(obj)
                             }
                                 renderFilterResult(obj);
@@ -175,8 +154,10 @@ function addLikes () {
     featuredRecipe.likes = parseInt(featuredRecipe.likes) + 1;
     displayLikes.textContent = featuredRecipe.likes;
     likeButton.style.backgroundColor = "red";
+    patchLikes();
 }
 
+//get requests (patch/post)
 function checkDatabase(recipe){
     fetch('http://localhost:3000/meals')
     .then(response =>  response.json())
@@ -222,6 +203,18 @@ function getRecipe(recipe){
     .catch(error=> console.log(error))
 }
 
+function patchLikes () {
+    configObj = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(featuredRecipe)
+    }
+    fetch(`http://localhost:3000/meals/${featuredRecipe.id}`, configObj)
+    .then(response => response.json())
+    .then(data => renderDisplay(data))
+}
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
