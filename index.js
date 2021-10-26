@@ -180,19 +180,19 @@ function addLikes () {
 function checkDatabase(recipe){
     fetch('http://localhost:3000/meals')
     .then(response =>  response.json())
+    .catch(error => console.log(error))
     .then(data => {
         for (const element of data ){
-            if (recipe.idMeal !== element.idMeal){
-                console.log(recipe.idMeal, element.idMeal)
-                console.log("idMeal is different")
-                postRecipe(recipe);
-                break;
-            } else {
+            if (recipe.idMeal === element.idMeal){
+                console.log('retrieving recipe');
                 getRecipe(recipe);
+                return "Recipe retrieved from database";
             }
         }
+        console.log('Recipe added to database')
+        postRecipe(recipe);
         })
-// .catch(error => console.log(error))
+
 }
 
 function postRecipe(recipe){
