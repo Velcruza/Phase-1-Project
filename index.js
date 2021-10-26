@@ -89,6 +89,7 @@ function renderDisplay (obj) {
             }
         }
     }
+
 }
 
 
@@ -100,8 +101,6 @@ function renderFilterResult(recipe){
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
         newResult.className = "result";
-
-        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
 
         recipeImage.title = recipe.strMeal;
 
@@ -127,9 +126,10 @@ function categoryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                            obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
                                 if(displayArr.length < 1){
                                     displayArr.push(obj)
-                                    renderDisplay(obj)
+                                    checkDatabase(obj)
                                 }
                                 renderFilterResult(obj);
                                 break;
@@ -154,9 +154,12 @@ function countryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                            obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
                             if(displayArr.length < 1){
+                                // console.log(obj)
                                 displayArr.push(obj)
-                                renderDisplay(obj)
+                                // console.log(displayArr)
+                                checkDatabase(obj)
                             }
                                 renderFilterResult(obj);
                                 break;
@@ -173,6 +176,52 @@ function addLikes () {
     displayLikes.textContent = featuredRecipe.likes;
     likeButton.style.backgroundColor = "red";
 }
+
+function checkDatabase(recipe){
+    fetch('http://localhost:3000/meals')
+    .then(response =>  response.json())
+    .then(data => {
+        for (const element of data ){
+            if (recipe.idMeal !== element.idMeal){
+                console.log(recipe.idMeal, element.idMeal)
+                console.log("idMeal is different")
+                postRecipe(recipe);
+                break;
+            } else {
+                getRecipe(recipe);
+            }
+        }
+        })
+// .catch(error => console.log(error))
+}
+
+function postRecipe(recipe){
+    configurationObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(recipe)
+    }
+    fetch('http://localhost:3000/meals', configurationObj)
+    .then(response => response.json())
+    .then(data => renderDisplay(data))
+    .catch(error => console.log(error))
+}
+
+function getRecipe(recipe){
+    fetch('http://localhost:3000/meals')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(element =>{
+            if (element.idMeal === recipe.idMeal){
+                renderDisplay(element)
+            }
+        })
+    })
+    .catch(error=> console.log(error))
+}
+
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
