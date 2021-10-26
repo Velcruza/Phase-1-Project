@@ -188,7 +188,7 @@ function addLikes () {
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
-ingFilterBttn.addEventListener('click', ingredientFilter)
+// ingFilterBttn.addEventListener('click', ingredientFilter)
 catFilterBttn.addEventListener('click', categoryFilter)
 countryFilterBttn.addEventListener('click', countryFilter)
 
