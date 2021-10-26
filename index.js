@@ -1,6 +1,9 @@
 fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
-.then(function(response) {return response.json()})
-.then(function(json) {renderResult(json)})
+    .then(function(response) {return response.json()})
+    .then(function(json) {renderResult(json)})
+fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+    .then(function(response) {return response.json()})
+    .then(function(json) {defaultDisplay(json)})
 
 //global variables ------------------------
 const recipeMenu = document.getElementById("recipe-menu");
@@ -21,6 +24,30 @@ const selectCountry = document.getElementById('food-country')
 let featuredRecipe;
 
 //functions ------------------------
+function defaultDisplay (obj) {
+    obj.meals.forEach(recipe => {  
+        console.log(recipe)  
+        recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
+        featuredRecipe = recipe;
+        displayImage.src = recipe.strMealThumb;
+        displayName.textContent = recipe.strMeal;
+        displayInstructions.textContent = recipe.strInstructions;
+        displayLikes.textContent = recipe.likes;
+        displayIngredients.replaceChildren();
+        for(let key in recipe){ 
+            for(let i=1; i<21; i++) {
+                if(key === `strIngredient${i}`){
+                    if(recipe[key] !== null && recipe[key] !== "") {
+                        let ingredient = document.createElement("li");
+                        ingredient.textContent = recipe[`strMeasure${i}`] + " " +recipe[key];
+                        displayIngredients.append(ingredient);
+                    } 
+                }
+        }
+    }
+    })
+}
+
 function renderResult (obj) {
     obj.meals.forEach(recipe => {
         let newResult = document.createElement("div");
@@ -44,7 +71,6 @@ function renderResult (obj) {
         recipeImage.addEventListener("click", () => renderDisplay(recipe))
     })
 }
-
 
 function renderDisplay (obj) {
     featuredRecipe = obj;
@@ -72,9 +98,7 @@ function renderFilterResult(recipe){
         let newResult = document.createElement("div");
         let recipeImage = document.createElement("img");
         let recipeTitle = document.createElement("h4");
-        // let resultLikes = document.createElement("p");
 
-        // resultLikes.className = "likes";
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
         newResult.className = "result";
@@ -91,32 +115,6 @@ function renderFilterResult(recipe){
 
         recipeImage.addEventListener("click", () => renderDisplay(recipe))
 }
-
-
-// function ingredientFilter() {
-//     const userInput = selectIng.value;
-//     recipeMenu.replaceChildren();
-//     for (const element of arrAlphabet){
-//         fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
-//         .then(response => response.json())
-//         .then(responseObj =>{
-//             let iterable = responseObj.meals
-//             if (Array.isArray(iterable)){
-//                 iterable.forEach((obj)=> { 
-      
-//                 for(const key in obj){
-//                         if(userInput === obj[key]){
-//                                 renderFilterResult(obj);
-//                                 break;
-//                     }
-//                 }
-//             })
-//         }
-//         })
-//     }
-
-// }
-
 
 function categoryFilter(){
     const userInput = selectCat.value;
@@ -162,7 +160,6 @@ function countryFilter(){
     }
 }
 
-
 function addLikes () {
     featuredRecipe.likes = parseInt(featuredRecipe.likes) + 1;
     displayLikes.textContent = featuredRecipe.likes;
@@ -171,8 +168,5 @@ function addLikes () {
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
-// ingFilterBttn.addEventListener('click', ingredientFilter)
 catFilterBttn.addEventListener('click', categoryFilter)
 countryFilterBttn.addEventListener('click', countryFilter)
-
-//test
