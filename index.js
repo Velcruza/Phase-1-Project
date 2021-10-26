@@ -72,9 +72,9 @@ function renderFilterResult(recipe){
         let newResult = document.createElement("div");
         let recipeImage = document.createElement("img");
         let recipeTitle = document.createElement("h4");
-        let resultLikes = document.createElement("p");
+        // let resultLikes = document.createElement("p");
 
-        resultLikes.className = "likes";
+        // resultLikes.className = "likes";
         recipeTitle.className = "recipe-title";
         recipeImage.className = "recipe-image";
         newResult.className = "result";
@@ -86,7 +86,7 @@ function renderFilterResult(recipe){
         recipeImage.src = recipe.strMealThumb;
         recipeTitle.textContent = recipe.strMeal;
 
-        newResult.append(recipeTitle, recipeImage, resultLikes);
+        newResult.append(recipeTitle, recipeImage);
         recipeMenu.append(newResult);
 
         recipeImage.addEventListener("click", () => renderDisplay(recipe))
@@ -103,12 +103,7 @@ function renderFilterResult(recipe){
 //             let iterable = responseObj.meals
 //             if (Array.isArray(iterable)){
 //                 iterable.forEach((obj)=> { 
-//                 //looping through ingredients here
-//                 //tried interpolating the i in strIngredient${i} but kept getting errors
-//                 //so manually have to changed it 1,2,3,4... etc
-//                 // for(let i=0; i<21; i++) {
-//                 //     console.log(obj[`strIngredient${i}`])
-//                 // }
+      
 //                 for(const key in obj){
 //                         if(userInput === obj[key]){
 //                                 renderFilterResult(obj);
@@ -133,12 +128,6 @@ function categoryFilter(){
             let iterable = responseObj.meals
             if (Array.isArray(iterable)){
                 iterable.forEach((obj)=> { 
-                //looping through ingredients here
-                //tried interpolating the i in strIngredient${i} but kept getting errors
-                //so manually have to changed it 1,2,3,4... etc
-                // for(let i=0; i<21; i++) {
-                //     console.log(obj[`strIngredient${i}`])
-                // }
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
@@ -161,12 +150,6 @@ function countryFilter(){
             let iterable = responseObj.meals
             if (Array.isArray(iterable)){
                 iterable.forEach((obj)=> { 
-                //looping through ingredients here
-                //tried interpolating the i in strIngredient${i} but kept getting errors
-                //so manually have to changed it 1,2,3,4... etc
-                // for(let i=0; i<21; i++) {
-                //     console.log(obj[`strIngredient${i}`])
-                // }
                 for(const key in obj){
                         if(userInput === obj[key]){
                                 renderFilterResult(obj);
