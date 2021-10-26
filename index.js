@@ -18,7 +18,8 @@ const selectCat = document.getElementById('food-category');
 const countryFilterBttn = document.getElementById('country-filter');
 const selectCountry = document.getElementById('food-country')
 
-let featuredRecipe;
+
+let featuredRecipe, displayArr;
 
 //functions ------------------------
 function defaultDisplay (obj) {
@@ -114,6 +115,7 @@ function renderFilterResult(recipe){
 }
 
 function categoryFilter(){
+    displayArr = [];
     const userInput = selectCat.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
@@ -125,6 +127,10 @@ function categoryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                                if(displayArr.length < 1){
+                                    displayArr.push(obj)
+                                    renderDisplay(obj)
+                                }
                                 renderFilterResult(obj);
                                 break;
                     }
@@ -136,6 +142,7 @@ function categoryFilter(){
 }
 
 function countryFilter(){
+    displayArr = [];
     const userInput = selectCountry.value;
     recipeMenu.replaceChildren();
     for (const element of arrAlphabet){
@@ -147,6 +154,10 @@ function countryFilter(){
                 iterable.forEach((obj)=> { 
                 for(const key in obj){
                         if(userInput === obj[key]){
+                            if(displayArr.length < 1){
+                                displayArr.push(obj)
+                                renderDisplay(obj)
+                            }
                                 renderFilterResult(obj);
                                 break;
                     }
