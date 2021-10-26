@@ -1,4 +1,4 @@
-fetch("https://themealdb.com/api/json/v1/1/search.php?f=a")
+fetch("https://themealdb.com/api/json/v1/1/search.php?f=b")
     .then(function(response) {return response.json()})
     .then(function(json) {renderResult(json)})
 fetch("https://www.themealdb.com/api/json/v1/1/random.php")
@@ -74,7 +74,6 @@ function renderDisplay (obj) {
     }
 
 }
-
 
 function renderFilterResult(recipe){
         let newResult = document.createElement("div");
