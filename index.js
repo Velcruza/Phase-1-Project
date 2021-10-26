@@ -175,3 +175,4 @@ likeButton.addEventListener("click", () => addLikes())
 catFilterBttn.addEventListener('click', categoryFilter)
 countryFilterBttn.addEventListener('click', countryFilter)
 
+//test

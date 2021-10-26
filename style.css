@@ -1,21 +1,13 @@
 /* css code things */
 body {
   margin: 0;
+  height: 690px;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   /* background: linear-gradient(180deg, rgba(206, 170, 115, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%); */
-  background-image: linear-gradient(180deg, rgba(206, 170, 115, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%), url("https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80");
+  background-image: linear-gradient(180deg, rgba(110, 91, 62, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%), url("https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80");
   background-size: cover;
 }
-
-/* .big-image {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-image: url("https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80");
-} */
 
 .overlay {
   position: absolute;
@@ -23,7 +15,6 @@ body {
   width: 100%;
   top: 0;
   left: 0;
-  /* background: linear-gradient(180deg, rgba(29, 21, 9, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%); */
   color: white;
   display: flex;
   align-items: center;
@@ -31,17 +22,21 @@ body {
   flex-direction: column;
 }
 
-#top-right {
-  position: absolute;
-  top: 8px;
-  right: 16px;
-  font-size: 18px;
+#logo {
+  position: relative;
+  top: 10px;
+  right: -570px;
+  height: 60px;
 }
 
 #top-center {
-  position: absolute;
-  top: 40px;
-  font-size: 18px;
+  position: relative;
+  top: -30px;
+  margin-left: 100px;
+  font-size: 36px;
+  color:black;
+  text-shadow: 2px 2px 5px white;
+  letter-spacing: 3px;
 }
 
 #filter-div {
@@ -52,14 +47,54 @@ body {
   margin-right: 5px;
 }
 
+#category-filter{
+  background-color: #000000;
+  opacity: 0.5;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+#country-filter{
+  background-color: #000000;
+  opacity: 0.5;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
 #food-category{
   margin-left: 20px;
   margin-right: 5px;
+  border-radius: 5px;
+  background-color: #000000;
+  opacity: 0.5;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
 }
 
 #food-country{
   margin-left: 20px;
   margin-right: 5px;
+  border-radius: 5px;
+  background-color: #000000;
+  opacity: 0.5;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
 }
 
 #display {
@@ -71,27 +106,30 @@ body {
 }
 
 
-
 #display-image {
-  height: 250px;
-  width: 300px;
-  margin-left: 100px;
+  height: 290px;
+  width: 340px;
+  margin-left: 155px;
   margin-top: 80px;
   border-radius: 20px;
 
 }
 
-/* #image-box{
-  align-items: center;
-} */
+#image-box{
+  /* align-items: center; */
+  margin-top: 50px;
+  margin-left: -60px;
+}
 
 #like-bttn{
-  margin-left: 200px;
+  margin-left: 290px;
   margin-right: 10px;
+  border-radius: 5px;
+  opacity: 0.70;
 }
 
 #info {
-  /* margin-left: -100px; */
+  margin-left: -100px;
   height: 400px;
   width: 800px;
   line-height: 1.5;
@@ -100,6 +138,7 @@ body {
 #recipe-name {
 margin-left: 190px;
 margin-bottom: 0px;
+margin-top: 60px;
 }
 
 #content {
@@ -116,7 +155,7 @@ margin-bottom: 0px;
 #instructions-info {
   margin-left: 50px;
   height: 300px;
-  /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
+  text-align: justify;
 }
 
 #instructions-title{
@@ -125,27 +164,36 @@ margin-bottom: 0px;
 
 #ingredients-title{
   text-align: center;
-
 }
 
 #instructions {
   height: 200px;
+  width: 400px;
   overflow: auto;
+  font-size: 18px;
+  /* margin-left: -40px; */
+  /* width: 100%; */
 }
 
 #ingredients {
   height: 200px;
-  width: 150px;
+  /* width: 190px; */
+  /* padding: 5px, -5px; */
   /* margin-left: -50px; */
   overflow: auto;
+  font-size: 18px;
+  word-spacing: 2px;
 }
 
 #recipe-menu{
   display: flex;
   /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
+  background:rgba(0, 0, 0, 0.5);
   height: 200px;
   overflow: auto;
   text-align: center;
+  margin-top: 65px;
+  color: rgb(238, 232, 232);
 }
 
 .result{
@@ -164,6 +212,8 @@ margin-bottom: 0px;
   margin: 0px;
   height: 18px;
   text-overflow: clip;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
 /* .likes {
