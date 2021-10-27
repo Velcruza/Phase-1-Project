@@ -24,10 +24,36 @@ let featuredRecipe, displayArr, userRecipe;
 
 //functions ------------------------
 function userIngredients () {
-    let newArray = userInput.value.split(", ");
-    // newArray.forEach(element => {
-
-    // })
+    let searchText = userInput.value.toLowerCase();
+    let newArray = searchText.split(", ");
+    // console.log(newArray);
+    let ingredientArray = [];
+    newArray.forEach(element => {
+        for (const letter of arrAlphabet){
+            fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+            .then(response => response.json())
+            .then(mealObj => {
+                let iterable = mealObj.meals;
+                if(Array.isArray(iterable)) {
+                    iterable.forEach(recipe => {
+                        for(let i=1; i<21; i++) {
+                            if(recipe[`strIngredient${i}`] !== null) {
+                                let wordText = recipe[`strIngredient${i}`].toLowerCase();
+                                let wordArray = [];
+                                wordArray = wordText.split(" ");
+                                for(let ingredient of wordArray) {
+                                    if(element === ingredient){
+                                        ingredientArray.push(recipe);
+                                    }
+                                }
+                            }  
+                        }
+                    })
+                }   
+            })
+        }
+    })
+    console.log(ingredientArray)
 }
 searchButton.addEventListener("click", userIngredients)
 
