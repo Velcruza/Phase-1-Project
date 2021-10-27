@@ -50,28 +50,47 @@ function userIngredients () {
             }   
         })
     }
-    setTimeout(() => delayFunction(newArray, ingredientArray) , 2000)
+    if(newArray.length > 1) {
+        setTimeout(() => delayFunction(newArray, ingredientArray) , 500);
+    } else {
+        setTimeout(() => {
+            recipeMenu.replaceChildren();
+            ingredientArray.forEach(element => {
+                renderFilterResult(element);
+            })
+            checkDatabase(ingredientArray[0]);
+        }, 500);
+    }
 }
 
 function delayFunction (newArray, ingredientArray) {
     let tempArray = [];
-    if(newArray.length > 1) {
-        ingredientArray.forEach(recipe => {
-            console.log("please help")
-            for(let i=1; i<21; i++) {
-                if(recipe[`strIngredient${i}`] !== null) {
-                    let wordText = recipe[`strIngredient${i}`].toLowerCase();
-                    let wordArray = [];
-                    wordArray = wordText.split(" ");
-                    for(let ingredient of wordArray) {
-                        if(newArray[1] === ingredient){
-                            tempArray.push(recipe);
-                        }
+    ingredientArray.forEach(recipe => {
+        for(let i=1; i<21; i++) {
+            if(recipe[`strIngredient${i}`] !== null) {
+                let wordText = recipe[`strIngredient${i}`].toLowerCase();
+                let wordArray = [];
+                wordArray = wordText.split(" ");
+                for(let ingredient of wordArray) {
+                    if(newArray[1] === ingredient){
+                        tempArray.push(recipe);
                     }
-                }  
-            }
+                }
+            }  
+        }
         })
+    for(let i=0; i<tempArray.length; i++) {
+        for(let x=0; x<tempArray.length; x++) {
+            if(tempArray[i].idMeal === tempArray[x].idMeal){
+                tempArray.splice(i, 1)
+            }
+        }
     }
+    recipeMenu.replaceChildren();
+    tempArray.forEach(element => {
+        renderFilterResult(element);
+    })
+    checkDatabase(tempArray[0]);
 }
 searchButton.addEventListener("click", userIngredients)
 
