@@ -26,34 +26,52 @@ let featuredRecipe, displayArr, userRecipe;
 function userIngredients () {
     let searchText = userInput.value.toLowerCase();
     let newArray = searchText.split(", ");
-    // console.log(newArray);
     let ingredientArray = [];
-    newArray.forEach(element => {
-        for (const letter of arrAlphabet){
-            fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${letter}`)
-            .then(response => response.json())
-            .then(mealObj => {
-                let iterable = mealObj.meals;
-                if(Array.isArray(iterable)) {
-                    iterable.forEach(recipe => {
-                        for(let i=1; i<21; i++) {
-                            if(recipe[`strIngredient${i}`] !== null) {
-                                let wordText = recipe[`strIngredient${i}`].toLowerCase();
-                                let wordArray = [];
-                                wordArray = wordText.split(" ");
-                                for(let ingredient of wordArray) {
-                                    if(element === ingredient){
-                                        ingredientArray.push(recipe);
-                                    }
+    for (const letter of arrAlphabet){
+        fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+        .then(response => response.json())
+        .then(mealObj => {
+            let iterable = mealObj.meals;
+            if(Array.isArray(iterable)) {
+                iterable.forEach(recipe => {
+                    for(let i=1; i<21; i++) {
+                        if(recipe[`strIngredient${i}`] !== null) {
+                            let wordText = recipe[`strIngredient${i}`].toLowerCase();
+                            let wordArray = [];
+                            wordArray = wordText.split(" ");
+                            for(let ingredient of wordArray) {
+                                if(newArray[0] === ingredient){
+                                    ingredientArray.push(recipe);
                                 }
-                            }  
+                            }
+                        }  
+                    }
+                })
+            }   
+        })
+    }
+    setTimeout(() => delayFunction(newArray, ingredientArray) , 2000)
+}
+
+function delayFunction (newArray, ingredientArray) {
+    let tempArray = [];
+    if(newArray.length > 1) {
+        ingredientArray.forEach(recipe => {
+            console.log("please help")
+            for(let i=1; i<21; i++) {
+                if(recipe[`strIngredient${i}`] !== null) {
+                    let wordText = recipe[`strIngredient${i}`].toLowerCase();
+                    let wordArray = [];
+                    wordArray = wordText.split(" ");
+                    for(let ingredient of wordArray) {
+                        if(newArray[1] === ingredient){
+                            tempArray.push(recipe);
                         }
-                    })
-                }   
-            })
-        }
-    })
-    console.log(ingredientArray)
+                    }
+                }  
+            }
+        })
+    }
 }
 searchButton.addEventListener("click", userIngredients)
 
