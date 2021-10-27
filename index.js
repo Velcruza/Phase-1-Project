@@ -54,10 +54,20 @@ function userIngredients () {
         setTimeout(() => delayFunction(newArray, ingredientArray) , 500);
     } else {
         setTimeout(() => {
+            console.log(ingredientArray)
+                for(let i=0; i<ingredientArray.length; i++) {
+                    for(let x=i+1; x<ingredientArray.length; x++) {
+                        if(ingredientArray[i].idMeal === ingredientArray[x].idMeal){
+                            ingredientArray.splice(i, 1)
+                        }
+                    }
+                }
             recipeMenu.replaceChildren();
             ingredientArray.forEach(element => {
+                element.likes = Math.floor(Math.random() * (100 - 1) + 1);
                 renderFilterResult(element);
             })
+            
             checkDatabase(ingredientArray[0]);
         }, 500);
     }
@@ -79,15 +89,18 @@ function delayFunction (newArray, ingredientArray) {
             }  
         }
         })
-    for(let i=0; i<tempArray.length; i++) {
-        for(let x=0; x<tempArray.length; x++) {
-            if(tempArray[i].idMeal === tempArray[x].idMeal){
-                tempArray.splice(i, 1)
+    // if(tempArray.length > 1) {
+        for(let i=0; i<tempArray.length; i++) {
+            for(let x=i+1; x<tempArray.length; x++) {
+                if(tempArray[i].idMeal === tempArray[x].idMeal){
+                    tempArray.splice(i, 1)
+                }
             }
         }
-    }
+    // }
     recipeMenu.replaceChildren();
     tempArray.forEach(element => {
+        element.likes = Math.floor(Math.random() * (100 - 1) + 1);
         renderFilterResult(element);
     })
     checkDatabase(tempArray[0]);
@@ -164,7 +177,7 @@ function renderFilterResult(recipe){
         newResult.append(recipeTitle, recipeImage);
         recipeMenu.append(newResult);
 
-        recipeImage.addEventListener("click", () => renderDisplay(recipe))
+        recipeImage.addEventListener("click", () => checkDatabase(recipe))
 }
 
 function categoryFilter(){
