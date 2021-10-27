@@ -42,6 +42,7 @@ function userIngredients () {
                             for(let ingredient of wordArray) {
                                 if(newArray[0] === ingredient){
                                     ingredientArray.push(recipe);
+                                    
                                 }
                             }
                         }  
@@ -51,7 +52,7 @@ function userIngredients () {
         })
     }
     if(newArray.length > 1) {
-        setTimeout(() => delayFunction(newArray, ingredientArray) , 500);
+        setTimeout(() => delayFunction(newArray, ingredientArray) , 1000);
     } else {
         setTimeout(() => {
             console.log(ingredientArray)
@@ -74,7 +75,9 @@ function userIngredients () {
 }
 
 function delayFunction (newArray, ingredientArray) {
+    console.log(ingredientArray)
     let tempArray = [];
+    
     ingredientArray.forEach(recipe => {
         for(let i=1; i<21; i++) {
             if(recipe[`strIngredient${i}`] !== null) {
@@ -89,15 +92,21 @@ function delayFunction (newArray, ingredientArray) {
             }  
         }
         })
-    // if(tempArray.length > 1) {
-        for(let i=0; i<tempArray.length; i++) {
-            for(let x=i+1; x<tempArray.length; x++) {
-                if(tempArray[i].idMeal === tempArray[x].idMeal){
+    console.log(tempArray)
+    if(tempArray.length > 1) {
+        // console.log("tempArray greater than 1")
+        for(let i=0 ; i < tempArray.length; i++) {
+            // console.log("within i")
+            for(let x = 0; x < tempArray.length; x++) {
+                // console.log("within x")
+                if( i !== x && tempArray[i].idMeal === tempArray[x].idMeal){
+                    console.log(tempArray[i].idMeal)
                     tempArray.splice(i, 1)
                 }
             }
         }
-    // }
+    }
+    console.log(tempArray)
     recipeMenu.replaceChildren();
     tempArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
@@ -105,6 +114,7 @@ function delayFunction (newArray, ingredientArray) {
     })
     checkDatabase(tempArray[0]);
 }
+
 searchButton.addEventListener("click", userIngredients)
 
 function defaultDisplay (obj) {
