@@ -16,11 +16,21 @@ const displayLikes = document.getElementById("display-likes")
 const catFilterBttn = document.getElementById('category-filter');
 const selectCat = document.getElementById('food-category');
 const countryFilterBttn = document.getElementById('country-filter');
-const selectCountry = document.getElementById('food-country')
+const selectCountry = document.getElementById('food-country');
+const userInput = document.getElementById("user-input");
+const searchButton = document.getElementById("search-button");
 
-let featuredRecipe, displayArr;
+let featuredRecipe, displayArr, userRecipe;
 
 //functions ------------------------
+function userIngredients () {
+    let newArray = userInput.value.split(", ");
+    // newArray.forEach(element => {
+
+    // })
+}
+searchButton.addEventListener("click", userIngredients)
+
 function defaultDisplay (obj) {
     obj.meals.forEach(recipe => {  
         recipe.likes = Math.floor(Math.random() * (100 - 1) + 1);
