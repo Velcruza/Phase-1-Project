@@ -48,36 +48,38 @@ function userIngredients () {
                         }  
                     }
                 })
-            }   
+            }
+            console.log(ingredientArray)   
         })
     }
     if(newArray.length > 1) {
-        setTimeout(() => delayFunction(newArray, ingredientArray) , 1000);
+        setTimeout(() => multiIngredient(newArray, ingredientArray) , 1500);
     } else {
-        setTimeout(() => {
-            console.log(ingredientArray)
-                for(let i=0; i<ingredientArray.length; i++) {
-                    for(let x=i+1; x<ingredientArray.length; x++) {
-                        if(ingredientArray[i].idMeal === ingredientArray[x].idMeal){
-                            ingredientArray.splice(i, 1)
-                        }
-                    }
-                }
-            recipeMenu.replaceChildren();
-            ingredientArray.forEach(element => {
-                element.likes = Math.floor(Math.random() * (100 - 1) + 1);
-                renderFilterResult(element);
-            })
-            
-            checkDatabase(ingredientArray[0]);
-        }, 500);
+        setTimeout(() => singleIngredient(ingredientArray), 1500);
     }
 }
 
-function delayFunction (newArray, ingredientArray) {
-    console.log(ingredientArray)
-    let tempArray = [];
+function singleIngredient (ingredientArray) {
+    // console.log(ingredientArray)
+        for(let i=0; i<ingredientArray.length; i++) {
+            for(let x=0; x<ingredientArray.length; x++) {
+                if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
+                    ingredientArray.splice(i, 1)
+                }
+            }
+        }
+        // console.log(ingredientArray)
+    recipeMenu.replaceChildren();
+    ingredientArray.forEach(element => {
+        element.likes = Math.floor(Math.random() * (100 - 1) + 1);
+        renderFilterResult(element);
+    })
     
+    checkDatabase(ingredientArray[0]);
+}
+
+function multiIngredient (newArray, ingredientArray) {
+    let tempArray = [];
     ingredientArray.forEach(recipe => {
         for(let i=1; i<21; i++) {
             if(recipe[`strIngredient${i}`] !== null) {
@@ -92,13 +94,9 @@ function delayFunction (newArray, ingredientArray) {
             }  
         }
         })
-    console.log(tempArray)
     if(tempArray.length > 1) {
-        // console.log("tempArray greater than 1")
         for(let i=0 ; i < tempArray.length; i++) {
-            // console.log("within i")
             for(let x = 0; x < tempArray.length; x++) {
-                // console.log("within x")
                 if( i !== x && tempArray[i].idMeal === tempArray[x].idMeal){
                     console.log(tempArray[i].idMeal)
                     tempArray.splice(i, 1)
@@ -106,7 +104,6 @@ function delayFunction (newArray, ingredientArray) {
             }
         }
     }
-    console.log(tempArray)
     recipeMenu.replaceChildren();
     tempArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
