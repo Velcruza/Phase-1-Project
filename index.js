@@ -44,10 +44,16 @@ function userIngredients () {
                             let wordText = recipe[`strIngredient${i}`].toLowerCase();
                             let wordArray = [];
                             wordArray = wordText.split(" ");
-                            for(let ingredient of wordArray) {
-                                if(newArray[0] === ingredient || spaceArray[0] === ingredient){
+                            for(let word of wordArray) {
+                                if(newArray[0] === word || spaceArray[0] === word){
                                     ingredientArray.push(recipe);   
                                 }
+                            }
+                            if (ingredientArray.length > 0){
+                                if (ingredientArray[ingredientArray.length - 1].idMeal === recipe.idMeal){
+                                    break;
+                                }
+                                
                             }
                         }  
                     }
@@ -64,31 +70,18 @@ function userIngredients () {
 }
 
 function singleIngredient (ingredientArray) {
-    for(let i=0; i<ingredientArray.length; i++) {
-        for(let x=0; x<ingredientArray.length; x++) {
-            if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
-                ingredientArray.splice(i, 1)
-            }
-        }
-    }
     recipeMenu.replaceChildren();
     ingredientArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
         renderFilterResult(element);
     })
-    
     checkDatabase(ingredientArray[0]);
 }
 
+
 function multiIngredient (newArray, ingredientArray, spaceArray) {
     let tempArray = [];
-    for(let i=0; i<ingredientArray.length; i++) {
-        for(let x=0; x<ingredientArray.length; x++) {
-            if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
-                ingredientArray.splice(i, 1)
-            }
-        }
-    }
+    
     ingredientArray.forEach(recipe => {
         for(let i=1; i<21; i++) {
             if(recipe[`strIngredient${i}`] !== null) {
@@ -100,18 +93,13 @@ function multiIngredient (newArray, ingredientArray, spaceArray) {
                         tempArray.push(recipe);
                     }
                 }
+                if (tempArray.length > 0 && tempArray[tempArray.length -1].idMeal === recipe.idMeal){
+                    break;
+                }
             }  
         }
     })
-    if(tempArray.length > 1) {
-        for(let i=0 ; i < tempArray.length; i++) {
-            for(let x = 0; x < tempArray.length; x++) {
-                if(i !== x && tempArray[x].idMeal === tempArray[i].idMeal){
-                    tempArray.splice(x, 1)
-                }
-            }
-        }
-    }
+   
     recipeMenu.replaceChildren();
     tempArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
