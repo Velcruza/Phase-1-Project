@@ -1,6 +1,9 @@
-fetch("https://themealdb.com/api/json/v1/1/search.php?f=b")
+function initialLoad () {
+    fetch("https://themealdb.com/api/json/v1/1/search.php?f=b")
     .then(function(response) {return response.json()})
     .then(function(json) {renderResult(json)})
+}
+initialLoad();
 fetch("https://www.themealdb.com/api/json/v1/1/random.php")
     .then(function(response) {return response.json()})
     .then(function(json) {defaultDisplay(json)})
@@ -19,6 +22,7 @@ const countryFilterBttn = document.getElementById('country-filter');
 const selectCountry = document.getElementById('food-country');
 const userInput = document.getElementById("user-input");
 const searchButton = document.getElementById("search-button");
+const filterButton = document.getElementById("filter");
 
 let featuredRecipe, displayArr, userRecipe;
 
@@ -49,7 +53,6 @@ function userIngredients () {
                     }
                 })
             }
-            console.log(ingredientArray)   
         })
     }
     if(newArray.length > 1) {
@@ -57,18 +60,17 @@ function userIngredients () {
     } else {
         setTimeout(() => singleIngredient(ingredientArray), 1500);
     }
+    userInput.value = "";
 }
 
 function singleIngredient (ingredientArray) {
-    // console.log(ingredientArray)
-        for(let i=0; i<ingredientArray.length; i++) {
-            for(let x=0; x<ingredientArray.length; x++) {
-                if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
-                    ingredientArray.splice(i, 1)
-                }
+    for(let i=0; i<ingredientArray.length; i++) {
+        for(let x=0; x<ingredientArray.length; x++) {
+            if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
+                ingredientArray.splice(i, 1)
             }
         }
-        // console.log(ingredientArray)
+    }
     recipeMenu.replaceChildren();
     ingredientArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
@@ -98,7 +100,6 @@ function multiIngredient (newArray, ingredientArray) {
         for(let i=0 ; i < tempArray.length; i++) {
             for(let x = 0; x < tempArray.length; x++) {
                 if( i !== x && tempArray[i].idMeal === tempArray[x].idMeal){
-                    console.log(tempArray[i].idMeal)
                     tempArray.splice(i, 1)
                 }
             }
@@ -111,8 +112,6 @@ function multiIngredient (newArray, ingredientArray) {
     })
     checkDatabase(tempArray[0]);
 }
-
-searchButton.addEventListener("click", userIngredients)
 
 function defaultDisplay (obj) {
     obj.meals.forEach(recipe => {  
@@ -187,6 +186,57 @@ function renderFilterResult(recipe){
         recipeImage.addEventListener("click", () => checkDatabase(recipe))
 }
 
+function filter () {
+    const categoryInput = selectCat.value;
+    const countryInput = selectCountry.value;
+    if(categoryInput === "Default" && countryInput !== "Default") {
+        countryFilter();
+    } else if(categoryInput !== "Default" && countryInput === "Default") {
+        categoryFilter();
+    } else if(categoryInput !== "Default" && countryInput !== "Default") {
+        filterBoth();
+    } else {
+        recipeMenu.replaceChildren();
+        initialLoad();
+    }
+}
+
+function filterBoth () {
+    let countryArray = [];
+    let categoryArray = [];
+    const categoryInput = selectCat.value;
+    const countryInput = selectCountry.value;
+    recipeMenu.replaceChildren();
+    for (const element of arrAlphabet){
+        fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
+        .then(response => response.json())
+        .then(responseObj =>{
+            let iterable = responseObj.meals
+            if (Array.isArray(iterable)){
+                iterable.forEach((obj)=> { 
+                    for(const key in obj){
+                            if(countryInput === obj[key]){
+                                obj.likes = Math.floor(Math.random() * (100 - 1) + 1)
+                                countryArray.push(obj)
+                            }
+                    }   
+                })
+            }
+        })
+    } 
+    setTimeout(() => {
+        countryArray.forEach(recipe => {
+            if(recipe.strCategory === categoryInput) {
+                categoryArray.push(recipe);
+            }
+        })
+        categoryArray.forEach(element => {
+            renderFilterResult(element);
+        })
+        checkDatabase(categoryArray[0]);
+    }, 1000)
+}
+
 function categoryFilter(){
     displayArr = [];
     const userInput = selectCat.value;
@@ -233,8 +283,8 @@ function countryFilter(){
                                 displayArr.push(obj)
                                 checkDatabase(obj)
                             }
-                                renderFilterResult(obj);
-                                break;
+                            renderFilterResult(obj);
+                            break;
                     }
                 }
             })
@@ -327,5 +377,5 @@ function patchLikes () {
 
 //event listeners ---------------------------
 likeButton.addEventListener("click", () => addLikes())
-catFilterBttn.addEventListener('click', categoryFilter)
-countryFilterBttn.addEventListener('click', countryFilter)
+filterButton.addEventListener("click", filter)
+searchButton.addEventListener("click", userIngredients)
