@@ -4,7 +4,6 @@ body {
   height: 690px;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
-  /* background: linear-gradient(180deg, rgba(206, 170, 115, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%); */
   background-image: linear-gradient(180deg, rgba(110, 91, 62, 0.85) 0%, rgba(201, 163, 129, 0.67) 47.92%, rgba(143, 142, 141, 0.39) 82.81%), url("https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80");
   background-size: cover;
 }
@@ -25,6 +24,20 @@ body {
   border-radius: 5px;
   font-weight: 200;
 }
+#filter {
+  margin-left: 5px;
+  border-radius: 5px;
+  background-color: #000000;
+  opacity: 0.5;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 200;
+}
+
 #filter-header {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -121,7 +134,7 @@ body {
 }
 
 #food-country{
-  margin-left: 20px;
+  margin-left: 5px;
   margin-right: 5px;
   border-radius: 5px;
   background-color: #000000;
@@ -142,7 +155,6 @@ body {
   
 }
 
-
 #display-image {
   height: 290px;
   width: 340px;
@@ -153,7 +165,6 @@ body {
 }
 
 #image-box{
-  /* align-items: center; */
   margin-top: 50px;
   margin-left: -60px;
 }
@@ -183,10 +194,8 @@ margin-top: 60px;
 }
 
 #ingredients-info{
-  /* margin-left: 150px; */
   width: 300px;
   height: 300px;
-  /* background: linear-gradient(180deg, rgba(206, 170, 115, 1) 0%, rgba(201, 163, 129, 1) 47.92%, rgb(218, 192, 166) 82.81%); */
 }
 
 #instructions-info {
@@ -208,15 +217,10 @@ margin-top: 60px;
   width: 400px;
   overflow: auto;
   font-size: 18px;
-  /* margin-left: -40px; */
-  /* width: 100%; */
 }
 
 #ingredients {
   height: 200px;
-  /* width: 190px; */
-  /* padding: 5px, -5px; */
-  /* margin-left: -50px; */
   overflow: auto;
   font-size: 18px;
   word-spacing: 2px;
@@ -251,7 +255,3 @@ margin-top: 60px;
   font-size: 16px;
   letter-spacing: 1px;
 }
-
-/* .likes {
-  margin: 0px;
-} */
