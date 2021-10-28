@@ -42,38 +42,43 @@ function userIngredients () {
                             for(let ingredient of wordArray) {
                                 if(newArray[0] === ingredient){
                                     ingredientArray.push(recipe);
+                                    
                                 }
                             }
                         }  
                     }
                 })
-            }   
+            }
+            console.log(ingredientArray)   
         })
     }
     if(newArray.length > 1) {
-        setTimeout(() => delayFunction(newArray, ingredientArray) , 500);
+        setTimeout(() => multiIngredient(newArray, ingredientArray) , 1500);
     } else {
-        setTimeout(() => {
-            console.log(ingredientArray)
-                for(let i=0; i<ingredientArray.length; i++) {
-                    for(let x=i+1; x<ingredientArray.length; x++) {
-                        if(ingredientArray[i].idMeal === ingredientArray[x].idMeal){
-                            ingredientArray.splice(i, 1)
-                        }
-                    }
-                }
-            recipeMenu.replaceChildren();
-            ingredientArray.forEach(element => {
-                element.likes = Math.floor(Math.random() * (100 - 1) + 1);
-                renderFilterResult(element);
-            })
-            
-            checkDatabase(ingredientArray[0]);
-        }, 500);
+        setTimeout(() => singleIngredient(ingredientArray), 1500);
     }
 }
 
-function delayFunction (newArray, ingredientArray) {
+function singleIngredient (ingredientArray) {
+    // console.log(ingredientArray)
+        for(let i=0; i<ingredientArray.length; i++) {
+            for(let x=0; x<ingredientArray.length; x++) {
+                if(i !== x && ingredientArray[i].idMeal === ingredientArray[x].idMeal){
+                    ingredientArray.splice(i, 1)
+                }
+            }
+        }
+        // console.log(ingredientArray)
+    recipeMenu.replaceChildren();
+    ingredientArray.forEach(element => {
+        element.likes = Math.floor(Math.random() * (100 - 1) + 1);
+        renderFilterResult(element);
+    })
+    
+    checkDatabase(ingredientArray[0]);
+}
+
+function multiIngredient (newArray, ingredientArray) {
     let tempArray = [];
     ingredientArray.forEach(recipe => {
         for(let i=1; i<21; i++) {
@@ -89,15 +94,16 @@ function delayFunction (newArray, ingredientArray) {
             }  
         }
         })
-    // if(tempArray.length > 1) {
-        for(let i=0; i<tempArray.length; i++) {
-            for(let x=i+1; x<tempArray.length; x++) {
-                if(tempArray[i].idMeal === tempArray[x].idMeal){
+    if(tempArray.length > 1) {
+        for(let i=0 ; i < tempArray.length; i++) {
+            for(let x = 0; x < tempArray.length; x++) {
+                if( i !== x && tempArray[i].idMeal === tempArray[x].idMeal){
+                    console.log(tempArray[i].idMeal)
                     tempArray.splice(i, 1)
                 }
             }
         }
-    // }
+    }
     recipeMenu.replaceChildren();
     tempArray.forEach(element => {
         element.likes = Math.floor(Math.random() * (100 - 1) + 1);
@@ -105,6 +111,7 @@ function delayFunction (newArray, ingredientArray) {
     })
     checkDatabase(tempArray[0]);
 }
+
 searchButton.addEventListener("click", userIngredients)
 
 function defaultDisplay (obj) {
@@ -234,6 +241,22 @@ function countryFilter(){
         }
         })
     }
+}
+
+function patchLikes(){
+    configObj ={
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(featuredRecipe)
+    }
+
+    fetch(`http://localhost:3000/meals/${featuredRecipe.id}`, configObj)
+    .then(response => response.json())
+    .catch(error => console.error("Error: ", error))
+    .then(console.log("successful likes patch"))
+
 }
 
 function addLikes () {
