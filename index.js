@@ -1,7 +1,11 @@
+const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't','v', 'w', 'y'];
 function initialLoad () {
-    fetch("https://themealdb.com/api/json/v1/1/search.php?f=b")
-    .then(function(response) {return response.json()})
-    .then(function(json) {renderResult(json)})
+    arrAlphabet.forEach(element => {
+        fetch(`https://themealdb.com/api/json/v1/1/search.php?f=${element}`)
+        .then(function(response) {return response.json()})
+        .then(function(json) { console.log(json) 
+        renderResult(json)})
+    })  
 }
 initialLoad();
 fetch("https://www.themealdb.com/api/json/v1/1/random.php")
@@ -13,7 +17,6 @@ const displayImage = document.getElementById("display-image");
 const displayName = document.getElementById("recipe-name");
 const displayIngredients = document.getElementById("ingredients");
 const displayInstructions = document.getElementById("instructions");
-const arrAlphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const likeButton = document.getElementById("like-bttn");
 const displayLikes = document.getElementById("display-likes")
 const catFilterBttn = document.getElementById('category-filter');
