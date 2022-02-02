@@ -120,8 +120,8 @@ body {
 }
 
 #food-category{
-  margin-left: 20px;
-  margin-right: 5px;
+  margin-left: 10px;
+  margin-right: 15px;
   border-radius: 5px;
   background-color: #000000;
   opacity: 0.5;
@@ -131,10 +131,11 @@ body {
   text-align: center;
   text-decoration: none;
   font-size: 18px;
+  width: 150px;
 }
 
 #food-country{
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 5px;
   border-radius: 5px;
   background-color: #000000;
@@ -145,6 +146,7 @@ body {
   text-align: center;
   text-decoration: none;
   font-size: 18px;
+  width: 150px;
 }
 
 #display {
