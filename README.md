@@ -14,14 +14,14 @@ You can then open the application in your browser by running `open index.html`.
 ## Created By
 
 Matt Eva:
-GitHub: https://github.com/Matt-Eva
-LinkedIn: https://www.linkedin.com/in/mattheweva/
+- GitHub: https://github.com/Matt-Eva
+- LinkedIn: https://www.linkedin.com/in/mattheweva/
 
 Hisham Almansouri:
-GitHub: https://github.com/h-almansouri
-LinkedIn: https://www.linkedin.com/in/hisham-almansouri-274526225/
+- GitHub: https://github.com/h-almansouri
+- LinkedIn: https://www.linkedin.com/in/hisham-almansouri-274526225/
 
 Diana Baciocco:
-GitHub: https://github.com/dianabaciocco
-LinkedIn: https://www.linkedin.com/in/dianabaciocco/
+- GitHub: https://github.com/dianabaciocco
+- LinkedIn: https://www.linkedin.com/in/dianabaciocco/
 
