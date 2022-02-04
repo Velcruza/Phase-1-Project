@@ -11,6 +11,13 @@ Then, run `json-server watch --db.json` to mimic API functionality.
 
 You can then open the application in your browser by running `open index.html`.
 
+## Walkthrough
+
+- Video Demo
+- Snapshot:
+
+
+
 ## Created By
 
 Matt Eva:
