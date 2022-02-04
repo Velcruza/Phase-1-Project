@@ -7,7 +7,7 @@ To run Munch locally, you'll need to use json-server. Munch fetches data from <a
 
 If you don't already have json-server installed, you can install it by running `npm install -g json-server`.
 
-Then, run `json-server watch --db.json` to mimic API functionality. 
+After you've forked and cloned down this repository, run `json-server watch --db.json` to mimic API functionality. 
 
 You can then open the application in your browser by running `open index.html`.
 
