@@ -16,7 +16,7 @@ You can then open the application in your browser by running `open index.html`.
 - Video Demo
 - Snapshot:
 
-
+<img width="1536" alt="Screen Shot 2022-02-04 at 9 09 50 AM" src="https://user-images.githubusercontent.com/89106805/152572195-c937e6ed-c120-444b-864b-4c115ae9b528.png">
 
 ## Created By
 
